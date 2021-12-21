@@ -74,20 +74,10 @@ class TelaFastR:
             sg.Radio('Branch','coverage',key='branch')],
 
             [sg.Text('3.Escolha o projeto e versão :')],
-            [sg.Radio('Flex v3','entity',key='flex'),
-            sg.Radio('Flex v3','entity',key='flex'),
-            sg.Radio('Grep v3','entity',key='grep'),
-            sg.Radio('Gzip v1','entity',key='gzip'),
-            sg.Radio('Make v1','entity',key='make'),
-            sg.Radio('Sed v6','entity',key='sed'),
-            sg.Radio('Chart v0','entity',key='chart'),
-            sg.Radio('Closure v0','entity',key='closure'),
-            sg.Radio('Lang v0','entity',key='lang'),
-            sg.Radio('Math v0','entity',key='math'),
-            sg.Radio('Time v0','entity',key='time')],
+            [sg.Combo(['Flex v3', 'GrepV3', 'Gzip v1', 'Make v1', 'Sed v6', 'Chart v0', 'Closure v0', 'Lang v0', 'MAth v0', 'Time v0'], '', key='combo')],
 
-            [sg.Text('4.Escolha quantidade de repetições :'), sg.Input(size=(15,0), key='repeticao')],
-             [sg.Button('2')],
+
+
             [sg.Button('Executar teste')]
         ]
         self.janela = sg.Window("Dados Usuario").layout(layout)
@@ -95,7 +85,7 @@ class TelaFastR:
     def Iniciar(self):
         while True:
 
-            senario = ""
+            cenario = ""
             cobertura = ""
             projeto = ""
             self.button, self.values = self.janela.Read()
@@ -116,9 +106,9 @@ class TelaFastR:
             chart = self.values['chart']
 
             if(budget == True):
-                senario = "experimentBudget.py"
+                cenario = "experimentBudget.py"
             elif(adequate == True):
-                senario = "experimentAdequate.py"
+                cenario = "experimentAdequate.py"
 
             if(function == True):
                 cobertura = "function"
@@ -142,8 +132,8 @@ class TelaFastR:
                print(fileNames)
                parameterizer(fileNames,"bbox")
            
-            # executarCmd = f'py py/{senario} {cobertura} {projeto} {repeticao}'
-            executarCmd = f'py py/{senario} {cobertura} {projeto}'
+            # executarCmd = f'py py/{cenario} {cobertura} {projeto} {repeticao}'
+            executarCmd = f'py py/{cenario} {cobertura} {projeto}'
             print(executarCmd)
            # os.system('py experimentBudget.py function flex v3 10')
            # subprocess.run(['py experimentBudget.py function flex v3 10'], stderr=sys.stderr, stdout=sys.stdout)
