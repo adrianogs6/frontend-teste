@@ -1,5 +1,6 @@
 <!-- marcação -->
-<script></script>
+<script src="jquery/jquery.js"></script>
+
 <div class="form-check form-check-inline">
   <input
     class="form-check-input"
@@ -21,13 +22,28 @@
   <label class="form-check-label" for="inlineRadio2">2</label>
 </div>
 
-<select class="form-select" aria-label="Default select example">
-  <option selected>Open this select menu</option>
-  <option value="1">One</option>
-  <option value="2">Two</option>
-  <option value="3">Three</option>
+<select id="form-select" aria-label="Default select example">
+  <option selected>Selecione</option>
+  <option value="flexv3">Flex v3</option>
+  <option value="grepv3">Grep v3</option>
+  <option value="gzipv1">Gzip v1</option>
+  <option value="makev1">Make v1</option>
+  <option value="sedv6">Sed v6</option>
+  <option value="chartv0">Chart v0</option>
+  <option value="closurev0">Closure v0</option>
+  <option value="langv0">Lang v0</option>
+  <option value="mathv0">Math v0</option>
+  <option value="timev0">Time v0</option>
 </select>
 
-<!-- função js -->
+<button type="button" class="btn btn-primary" onclick="organizarDados()">
+  Executar Teste
+</button>
 
+<!-- função js -->
+<script type="text/javascript">
+  function organizarDados() {
+    var opcao = $("select").val();
+  }
+</script>
 <!-- requisição -->
