@@ -1,78 +1,150 @@
-<!-- marcação -->
-<script src="jquery/jquery.js"></script>
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
+  </head>
+  <script type="text/javascript">
+    function organizarDados() {
+      var inputCenario;
+      var entradaCenario = $(".form-select-cenario").val();
+      if (entradaCenario == "Budget") {
+        inputCenario = "experimentBudget.py";
+      } else {
+        inputCenario = "experimentAdequate.py";
+      }
+      var inputCobertura = $(".form-select-cobertura").val();
+      var inputProjeto = $(".form-select-projeto").val();
 
-<div tabindex="-1" role="dialog" aria-hidden="true" align="center">
-  <div>
-    <p>Escolha o cenário</p>
-    <select class="form-select-cenario" aria-label="Default select example">
-      <option selected>Selecione</option>
-      <option value="Budget">Budget</option>
-      <option value="Adequate">Adequate</option>
-    </select>
-  </div>
-  <div>
-    <p>Escolha a cobertura</p>
-    <select class="form-select-cobertura" aria-label="Default select example">
-      <option selected>Selecione</option>
-      <option value="Function">Function</option>
-      <option value="Line">Line</option>
-      <option value="Branch">Branch</option>
-    </select>
-  </div>
-  <div>
-    <p>Escolha o projeto e versão</p>
-    <select class="form-select-projeto" aria-label="Default select example">
-      <option selected>Selecione</option>
-      <option value="Flex v3">Flex v3</option>
-      <option value="Grep v3">Grep v3</option>
-      <option value="Gzip v1">Gzip v1</option>
-      <option value="Make v1">Make v1</option>
-      <option value="Sed v6">Sed v6</option>
-      <option value="Chart v0">Chart v0</option>
-      <option value="Closure v0">Closure v0</option>
-      <option value="Lang v0">Lang v0</option>
-      <option value="Math v0">Math v0</option>
-      <option value="Time v0">Time v0</option>
-    </select>
-  </div>
-  <div>
-    <button type="button" class="btn btn-primary" onclick="organizarDados()">
-      Executar Teste
-    </button>
-  </div>
-</div>
+      var objeto = {
+        cenario: inputCenario,
+        cobertura: inputCobertura,
+        projeto: inputProjeto,
+      };
+      EnviarDados(objeto);
+    }
+
+    function EnviarDados(objeto) {
+      $.ajax({
+        method: "POST",
+        url: "http://127.0.0.1:5000/executaFastR",
+        contentType: "application/json",
+        data: JSON.stringify(objeto),
+        dataType: "json",
+        success: function (data) {
+          console.log(data);
+        },
+      });
+    }
+  </script>
+  <script src="jquery/jquery.js"></script>
+  <script
+    src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"
+  ></script>
+  <body>
+    <div
+      id="masterId"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+      align="center"
+    >
+      <div><img src="/img/teste.jpeg" /></div>
+      <div>
+        <p>Escolha o cenário</p>
+        <select class="form-select-cenario" aria-label="Default select example">
+          <option selected>Selecione</option>
+          <option value="Budget">Budget</option>
+          <option value="Adequate">Adequate</option>
+        </select>
+      </div>
+      <div>
+        <p>Escolha a cobertura</p>
+        <select
+          class="form-select-cobertura"
+          aria-label="Default select example"
+        >
+          <option selected>Selecione</option>
+          <option value="Function">Function</option>
+          <option value="Line">Line</option>
+          <option value="Branch">Branch</option>
+        </select>
+      </div>
+      <div>
+        <p>Escolha o projeto e versão</p>
+        <select class="form-select-projeto" aria-label="Default select example">
+          <option selected>Selecione</option>
+          <option value="Flex v3">Flex v3</option>
+          <option value="Grep v3">Grep v3</option>
+          <option value="Gzip v1">Gzip v1</option>
+          <option value="Make v1">Make v1</option>
+          <option value="Sed v6">Sed v6</option>
+          <option value="Chart v0">Chart v0</option>
+          <option value="Closure v0">Closure v0</option>
+          <option value="Lang v0">Lang v0</option>
+          <option value="Math v0">Math v0</option>
+          <option value="Time v0">Time v0</option>
+        </select>
+      </div>
+      <div>
+        <button
+          type="button"
+          class="btn btn-outline-primary"
+          onclick="organizarDados()"
+        >
+          Executar Teste
+        </button>
+      </div>
+      <div id="show-information"></div>
+    </div>
+  </body>
+</html>
 
 <!-- função js -->
-<script type="text/javascript">
-  function organizarDados() {
-    var inputCenario;
-    var entradaCenario = $(".form-select-cenario").val();
-    if (entradaCenario == "Budget") {
-      inputCenario = "experimentBudget.py";
-    } else {
-      inputCenario = "experimentAdequate.py";
-    }
-    var inputCobertura = $(".form-select-cobertura").val();
-    var inputProjeto = $(".form-select-projeto").val();
 
-    var objeto = {
-      cenario: inputCenario,
-      cobertura: inputCobertura,
-      projeto: inputProjeto,
-    };
-    EnviarDados(objeto);
+<style>
+  p {
+    font-size: 25px;
   }
 
-  function EnviarDados(objeto) {
-    $.ajax({
-      method: "POST",
-      url: "http://127.0.0.1:5000/executaFastR",
-      contentType: "application/json",
-      data: JSON.stringify(objeto),
-      dataType: "json",
-      success: function (data) {
-        console.log(data);
-      },
-    });
+  body {
+    background-color: aqua;
   }
-</script>
+
+  select {
+    font-size: 20px;
+    padding: 8px 12px;
+    background-color: #eeeeee;
+    border: 1px solid #dddddd;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+  select:focus,
+  select:hover {
+    outline: none;
+    border: 1px solid #bbbbbb;
+  }
+
+  .btn {
+    font-size: 25px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+</style>
