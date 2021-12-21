@@ -1,10 +1,10 @@
 <!-- marcação -->
 <script src="jquery/jquery.js"></script>
 
-<div tabindex="-1" role="dialog" aria-hidden="true">
+<div tabindex="-1" role="dialog" aria-hidden="true" align="center">
   <div>
     <p>Escolha o cenário</p>
-    <select class="form-select2" aria-label="Default select example">
+    <select class="form-select-cenario" aria-label="Default select example">
       <option selected>Selecione</option>
       <option value="budget">Budget</option>
       <option value="adequate">Adequate</option>
@@ -12,7 +12,7 @@
   </div>
   <div>
     <p>Escolha a cobertura</p>
-    <select id="form-select" aria-label="Default select example">
+    <select class="form-select-cobertura" aria-label="Default select example">
       <option selected>Selecione</option>
       <option value="function">Function</option>
       <option value="line">Line</option>
@@ -21,7 +21,7 @@
   </div>
   <div>
     <p>Escolha o projeto e versão</p>
-    <select id="form-select" aria-label="Default select example">
+    <select class="form-select-projeto" aria-label="Default select example">
       <option selected>Selecione</option>
       <option value="flexv3">Flex v3</option>
       <option value="grepv3">Grep v3</option>
@@ -36,10 +36,6 @@
     </select>
   </div>
   <div>
-    <p>Escolha quantidade de repetições</p>
-    <textarea></textarea>
-  </div>
-  <div>
     <button type="button" class="btn btn-primary" onclick="organizarDados()">
       Executar Teste
     </button>
@@ -50,10 +46,23 @@
 <script type="text/javascript">
   function organizarDados() {
     //var opcao = $("select").val();
-    var opcao2 = $(".form-select2").val();
+    var cenario = $(".form-select-cenario").val();
+    var cobertura = $(".form-select-cobertura").val();
+    var projeto = $(".form-select-projeto").val();
+    //var texto = $("textarea").val();
+
+    var objeto = {
+      cenario,
+      cobertura,
+      projeto,
+    };
+  }
+
+  function EnviarDados(objeto) {
+    $.ajax({
+      method: "POST",
+      url: "http://127.0.0.1:5000/executaFastR",
+      data: { cenario: "", cobertura: "", projeto: "" },
+    });
   }
 </script>
-<!-- requisição -->
-
-<!-- $.ajax({ method: "POST", url: "cadastrar.php", data: { nome: "Pedro", email:
-"pedro@email.com" } }) -->
