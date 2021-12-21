@@ -6,33 +6,33 @@
     <p>Escolha o cenário</p>
     <select class="form-select-cenario" aria-label="Default select example">
       <option selected>Selecione</option>
-      <option value="budget">Budget</option>
-      <option value="adequate">Adequate</option>
+      <option value="Budget">Budget</option>
+      <option value="Adequate">Adequate</option>
     </select>
   </div>
   <div>
     <p>Escolha a cobertura</p>
     <select class="form-select-cobertura" aria-label="Default select example">
       <option selected>Selecione</option>
-      <option value="function">Function</option>
-      <option value="line">Line</option>
-      <option value="branch">Branch</option>
+      <option value="Function">Function</option>
+      <option value="Line">Line</option>
+      <option value="Branch">Branch</option>
     </select>
   </div>
   <div>
     <p>Escolha o projeto e versão</p>
     <select class="form-select-projeto" aria-label="Default select example">
       <option selected>Selecione</option>
-      <option value="flexv3">Flex v3</option>
-      <option value="grepv3">Grep v3</option>
-      <option value="gzipv1">Gzip v1</option>
-      <option value="makev1">Make v1</option>
-      <option value="sedv6">Sed v6</option>
-      <option value="chartv0">Chart v0</option>
-      <option value="closurev0">Closure v0</option>
-      <option value="langv0">Lang v0</option>
-      <option value="mathv0">Math v0</option>
-      <option value="timev0">Time v0</option>
+      <option value="Flex v3">Flex v3</option>
+      <option value="Grep v3">Grep v3</option>
+      <option value="Gzip v1">Gzip v1</option>
+      <option value="Make v1">Make v1</option>
+      <option value="Sed v6">Sed v6</option>
+      <option value="Chart v0">Chart v0</option>
+      <option value="Closure v0">Closure v0</option>
+      <option value="Lang v0">Lang v0</option>
+      <option value="Math v0">Math v0</option>
+      <option value="Time v0">Time v0</option>
     </select>
   </div>
   <div>
@@ -45,16 +45,20 @@
 <!-- função js -->
 <script type="text/javascript">
   function organizarDados() {
-    //var opcao = $("select").val();
-    var cenario = $(".form-select-cenario").val();
-    var cobertura = $(".form-select-cobertura").val();
-    var projeto = $(".form-select-projeto").val();
-    //var texto = $("textarea").val();
+    var inputCenario;
+    var entradaCenario = $(".form-select-cenario").val();
+    if (entradaCenario == "Budget") {
+      inputCenario = "experimentBudget.py";
+    } else {
+      inputCenario = "experimentAdequate.py";
+    }
+    var inputCobertura = $(".form-select-cobertura").val();
+    var inputProjeto = $(".form-select-projeto").val();
 
     var objeto = {
-      cenario,
-      cobertura,
-      projeto,
+      cenario: inputCenario,
+      cobertura: inputCobertura,
+      projeto: inputProjeto,
     };
   }
 
@@ -62,7 +66,12 @@
     $.ajax({
       method: "POST",
       url: "http://127.0.0.1:5000/executaFastR",
-      data: { cenario: "", cobertura: "", projeto: "" },
+      contentType: "application/json",
+      data: JSON.stringify(objeto),
+      dataType: "json",
+      success: function (data) {
+        console.log(data);
+      },
     });
   }
 </script>
